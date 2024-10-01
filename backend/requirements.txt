@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pymongo
+python-decouple
+python-jose
+passlib

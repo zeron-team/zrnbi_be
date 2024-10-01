@@ -1,9 +1,23 @@
 from fastapi import FastAPI
-from app.routes import auth  # Ajusta esta línea según tu estructura de rutas
+from fastapi.middleware.cors import CORSMiddleware
+from app.routes.auth import auth_router
+from app.routes.users import users_router
 
 app = FastAPI()
 
-# Incluye el router de autenticación (o cualquier otro que tengas)
-app.include_router(auth.auth_router)
+# Middleware para habilitar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://31.220.76.74:3000"],  # React localhost
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# Verifica que tu aplicación esté configurada correctamente
+# Incluir rutas
+app.include_router(auth_router, prefix="/auth")
+app.include_router(users_router, prefix="/users")
+
+@app.get("/")
+async def root():
+    return {"message": "Bienvenido al backend de BI SaaS"}
