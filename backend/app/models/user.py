@@ -1,3 +1,5 @@
+# backend/app/models/user.py
+
 from pydantic import BaseModel
 
 # Modelo para el registro o uso general de usuarios
